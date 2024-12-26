@@ -2,7 +2,6 @@
 
 ### install required python packages
 ```
-cd gwo-path-planner
 pip install -r requirements.txt
 ```
 ### install ffmpeg with MacOS

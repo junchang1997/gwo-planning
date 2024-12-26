@@ -369,19 +369,19 @@
     {
         "label": "set_seed",
         "kind": 2,
-        "importPath": "gwo-path-planner.main",
-        "description": "gwo-path-planner.main",
+        "importPath": "main",
+        "description": "main",
         "peekOfCode": "def set_seed(seed=None):\n    \"\"\"Set random seed for reproducibility.\"\"\"\n    if seed is None:\n        seed = random.randint(0, 100000)\n    np.random.seed(seed)\n    random.seed(seed)\n    return seed\ndef main():\n    # Algorithm parameters\n    SearchAgents = 30",
-        "detail": "gwo-path-planner.main",
+        "detail": "main",
         "documentation": {}
     },
     {
         "label": "main",
         "kind": 2,
-        "importPath": "gwo-path-planner.main",
-        "description": "gwo-path-planner.main",
+        "importPath": "main",
+        "description": "main",
         "peekOfCode": "def main():\n    # Algorithm parameters\n    SearchAgents = 30\n    Max_iter = 200\n    # Setup\n    UAV = UAV_SetUp()\n    seed = set_seed(None)  # Change to an integer for a fixed seed\n    print(f\"Using seed: {seed}\")\n    # Run optimization\n    solution = GWO(UAV, SearchAgents, Max_iter, seed)",
-        "detail": "gwo-path-planner.main",
+        "detail": "main",
         "documentation": {}
     }
 ]
