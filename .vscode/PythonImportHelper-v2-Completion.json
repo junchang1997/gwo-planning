@@ -371,7 +371,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def set_seed(seed=None):\n    \"\"\"Set random seed for reproducibility.\"\"\"\n    if seed is None:\n        seed = random.randint(0, 100000)\n    np.random.seed(seed)\n    random.seed(seed)\n    return seed\ndef main():\n    # Algorithm parameters\n    SearchAgents = 30",
+        "peekOfCode": "def set_seed(seed=None):\n    \"\"\"Set random seed for reproducibility.\"\"\"\n    if seed is None:\n        seed = random.randint(0, 100000)\n    np.random.seed(seed)\n    random.seed(seed)\n    return seed\ndef main():\n    # Algorithm parameters\n    SearchAgents = 20",
         "detail": "main",
         "documentation": {}
     },
@@ -380,7 +380,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def main():\n    # Algorithm parameters\n    SearchAgents = 30\n    Max_iter = 200\n    # Setup\n    UAV = UAV_SetUp()\n    seed = set_seed(None)  # Change to an integer for a fixed seed\n    # print(f\"Using seed: {seed}\")\n    is_normal = True\n    # Run optimization",
+        "peekOfCode": "def main():\n    # Algorithm parameters\n    SearchAgents = 20\n    Max_iter = 200\n    # Setup\n    UAV = UAV_SetUp()\n    seed = set_seed(None)  # Change to an integer for a fixed seed\n    # print(f\"Using seed: {seed}\")\n    is_normal = True\n    # Run optimization",
         "detail": "main",
         "documentation": {}
     }

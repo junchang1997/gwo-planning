@@ -18,7 +18,7 @@ def set_seed(seed=None):
 
 def main():
     # Algorithm parameters
-    SearchAgents = 30
+    SearchAgents = 20
     Max_iter = 200
 
     # Setup
@@ -43,13 +43,13 @@ def main():
     is_normal = False
     # Run optimization
     solution = GWO(
-        UAV, SearchAgents, Max_iter, seed, is_normal=is_normal, dynamic_g=0.7
+        UAV, SearchAgents, Max_iter, seed, is_normal=is_normal, dynamic_g=0.1
     )
 
     # Export data
     animation_filename = "normal_gwo.json" if is_normal else "imporve_gwo.json"
     export_animation_data(solution, UAV, filename=animation_filename)
-    
+
     # Create and save animation
     animator = PathAnimator(UAV, ObjFun)
     animation, total_frames = animator.create_animation(solution["all_paths"])
