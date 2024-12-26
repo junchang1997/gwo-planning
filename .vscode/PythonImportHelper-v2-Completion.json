@@ -290,7 +290,7 @@
         "kind": 5,
         "importPath": "gwo-path-planner.src.visualization.config",
         "description": "gwo-path-planner.src.visualization.config",
-        "peekOfCode": "DPI = 100\nFPS = 30\nDURATION = 10  # Duration in seconds\nROTATION_ANGLE = 360  # Two full rotations\ndef setup_plot_style(ax, fig, UAV):\n    \"\"\"Configure the 3D plot style.\"\"\"\n    import matplotlib.pyplot as plt\n    import numpy as np\n    plt.style.use('dark_background')\n    # Set background color",
+        "peekOfCode": "DPI = 100\nFPS = 30\nDURATION = 10  # Duration in seconds\nROTATION_ANGLE = 0  # Two full rotations\ndef setup_plot_style(ax, fig, UAV):\n    \"\"\"Configure the 3D plot style.\"\"\"\n    import matplotlib.pyplot as plt\n    import numpy as np\n    plt.style.use('dark_background')\n    # Set background color",
         "detail": "gwo-path-planner.src.visualization.config",
         "documentation": {}
     },
@@ -299,7 +299,7 @@
         "kind": 5,
         "importPath": "gwo-path-planner.src.visualization.config",
         "description": "gwo-path-planner.src.visualization.config",
-        "peekOfCode": "FPS = 30\nDURATION = 10  # Duration in seconds\nROTATION_ANGLE = 360  # Two full rotations\ndef setup_plot_style(ax, fig, UAV):\n    \"\"\"Configure the 3D plot style.\"\"\"\n    import matplotlib.pyplot as plt\n    import numpy as np\n    plt.style.use('dark_background')\n    # Set background color\n    ax.set_facecolor(COLORS['main']['background'])",
+        "peekOfCode": "FPS = 30\nDURATION = 10  # Duration in seconds\nROTATION_ANGLE = 0  # Two full rotations\ndef setup_plot_style(ax, fig, UAV):\n    \"\"\"Configure the 3D plot style.\"\"\"\n    import matplotlib.pyplot as plt\n    import numpy as np\n    plt.style.use('dark_background')\n    # Set background color\n    ax.set_facecolor(COLORS['main']['background'])",
         "detail": "gwo-path-planner.src.visualization.config",
         "documentation": {}
     },
@@ -308,7 +308,7 @@
         "kind": 5,
         "importPath": "gwo-path-planner.src.visualization.config",
         "description": "gwo-path-planner.src.visualization.config",
-        "peekOfCode": "DURATION = 10  # Duration in seconds\nROTATION_ANGLE = 360  # Two full rotations\ndef setup_plot_style(ax, fig, UAV):\n    \"\"\"Configure the 3D plot style.\"\"\"\n    import matplotlib.pyplot as plt\n    import numpy as np\n    plt.style.use('dark_background')\n    # Set background color\n    ax.set_facecolor(COLORS['main']['background'])\n    fig.patch.set_facecolor(COLORS['main']['background'])",
+        "peekOfCode": "DURATION = 10  # Duration in seconds\nROTATION_ANGLE = 0  # Two full rotations\ndef setup_plot_style(ax, fig, UAV):\n    \"\"\"Configure the 3D plot style.\"\"\"\n    import matplotlib.pyplot as plt\n    import numpy as np\n    plt.style.use('dark_background')\n    # Set background color\n    ax.set_facecolor(COLORS['main']['background'])\n    fig.patch.set_facecolor(COLORS['main']['background'])",
         "detail": "gwo-path-planner.src.visualization.config",
         "documentation": {}
     },
@@ -317,7 +317,7 @@
         "kind": 5,
         "importPath": "gwo-path-planner.src.visualization.config",
         "description": "gwo-path-planner.src.visualization.config",
-        "peekOfCode": "ROTATION_ANGLE = 360  # Two full rotations\ndef setup_plot_style(ax, fig, UAV):\n    \"\"\"Configure the 3D plot style.\"\"\"\n    import matplotlib.pyplot as plt\n    import numpy as np\n    plt.style.use('dark_background')\n    # Set background color\n    ax.set_facecolor(COLORS['main']['background'])\n    fig.patch.set_facecolor(COLORS['main']['background'])\n    # Adjust the plot area",
+        "peekOfCode": "ROTATION_ANGLE = 0  # Two full rotations\ndef setup_plot_style(ax, fig, UAV):\n    \"\"\"Configure the 3D plot style.\"\"\"\n    import matplotlib.pyplot as plt\n    import numpy as np\n    plt.style.use('dark_background')\n    # Set background color\n    ax.set_facecolor(COLORS['main']['background'])\n    fig.patch.set_facecolor(COLORS['main']['background'])\n    # Adjust the plot area",
         "detail": "gwo-path-planner.src.visualization.config",
         "documentation": {}
     },

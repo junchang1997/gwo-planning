@@ -16,10 +16,10 @@ brew install ffmpeg
 python main.py
 ```
 
-## project structure 
+### project structure 
 ```
 ├── src/
-│   ├── core/                 # Core algorithm implementations
+│   ├── core/                # Core algorithm implementations
 │   │   ├── gwo.py           # Grey Wolf Optimizer algorithm
 │   │   ├── obj_fun.py       # Objective function for path evaluation
 │   │   └── uav_setup.py     # UAV configuration and constraints

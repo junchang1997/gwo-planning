@@ -20,7 +20,7 @@ COLORS = {
 DPI = 100
 FPS = 30
 DURATION = 10  # Duration in seconds
-ROTATION_ANGLE = 360  # Two full rotations
+ROTATION_ANGLE = 0  # Two full rotations
 
 def setup_plot_style(ax, fig, UAV):
     """Configure the 3D plot style."""
