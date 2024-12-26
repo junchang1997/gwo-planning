@@ -12,9 +12,10 @@ def ObjFun(position, UAV):
     collision_penalty = check_collisions(path, UAV["NoFlyZones"])
 
     # Objective function: heavily penalize collisions, but prioritize distance minimization
-    fitness = 0.3 * total_distance + 0.7 * collision_penalty
-
-    return fitness
+    w1 = 0.0001
+    w2 = 1 - w1
+    fitness = w1 * total_distance + w2 * collision_penalty
+    return fitness * 1e6
 
 
 def check_collisions(path, no_fly_zones):

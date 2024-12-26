@@ -11,17 +11,31 @@ def GWO(UAV, SearchAgents, Max_iter, seed, is_normal=True, dynamic_g=0.5):
     dim = UAV["PointNum"] * UAV["PointDim"]
 
     # Initialize positions
-    Positions = np.random.uniform(
-        low=np.tile(
-            [UAV["limt"]["x"][0], UAV["limt"]["y"][0], UAV["limt"]["z"][0]],
-            UAV["PointNum"],
-        ),
-        high=np.tile(
-            [UAV["limt"]["x"][1], UAV["limt"]["y"][1], UAV["limt"]["z"][1]],
-            UAV["PointNum"],
-        ),
-        size=(SearchAgents, dim),
-    )
+    Positions = None
+    if is_normal:
+        Positions = np.random.uniform(
+            low=np.tile(
+                [UAV["limt"]["x"][0], UAV["limt"]["y"][0], UAV["limt"]["z"][0]],
+                UAV["PointNum"],
+            ),
+            high=np.tile(
+                [UAV["limt"]["x"][1], UAV["limt"]["y"][1], UAV["limt"]["z"][1]],
+                UAV["PointNum"],
+            ),
+            size=(SearchAgents, dim),
+        )
+    else:
+        Positions = np.random.uniform(
+            low=np.tile(
+                [UAV["S"][0], UAV["S"][1], UAV["S"][2]],
+                UAV["PointNum"],
+            ),
+            high=np.tile(
+                [UAV["G"][0], UAV["G"][1], UAV["G"][2]],
+                UAV["PointNum"],
+            ),
+            size=(SearchAgents, dim),
+        )
 
     # Initialize Alpha, Beta, and Delta
     Alpha_pos, Beta_pos, Delta_pos = np.zeros((3, dim))

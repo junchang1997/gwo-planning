@@ -31,7 +31,8 @@ def main():
     solution = GWO(UAV, SearchAgents, Max_iter, seed, is_normal=is_normal)
 
     # Export data
-    export_animation_data(solution, UAV)
+    animation_filename = "normal_gwo.json" if is_normal else "imporve_gwo.json"
+    export_animation_data(solution, UAV, filename=animation_filename)
 
     # Create and save animation
     animator = PathAnimator(UAV, ObjFun)
@@ -46,8 +47,9 @@ def main():
     )
 
     # Export data
-    export_animation_data(solution, UAV)
-
+    animation_filename = "normal_gwo.json" if is_normal else "imporve_gwo.json"
+    export_animation_data(solution, UAV, filename=animation_filename)
+    
     # Create and save animation
     animator = PathAnimator(UAV, ObjFun)
     animation, total_frames = animator.create_animation(solution["all_paths"])
