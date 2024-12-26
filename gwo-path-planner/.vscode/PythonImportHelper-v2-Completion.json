@@ -1,0 +1,387 @@
+[
+    {
+        "label": "numpy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "numpy",
+        "description": "numpy",
+        "detail": "numpy",
+        "documentation": {}
+    },
+    {
+        "label": "time",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "time",
+        "description": "time",
+        "detail": "time",
+        "documentation": {}
+    },
+    {
+        "label": "matplotlib.pyplot",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "matplotlib.pyplot",
+        "description": "matplotlib.pyplot",
+        "detail": "matplotlib.pyplot",
+        "documentation": {}
+    },
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "matplotlib.animation",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "matplotlib.animation",
+        "description": "matplotlib.animation",
+        "detail": "matplotlib.animation",
+        "documentation": {}
+    },
+    {
+        "label": "FuncAnimation",
+        "importPath": "matplotlib.animation",
+        "description": "matplotlib.animation",
+        "isExtraImport": true,
+        "detail": "matplotlib.animation",
+        "documentation": {}
+    },
+    {
+        "label": "Line3D",
+        "importPath": "mpl_toolkits.mplot3d.art3d",
+        "description": "mpl_toolkits.mplot3d.art3d",
+        "isExtraImport": true,
+        "detail": "mpl_toolkits.mplot3d.art3d",
+        "documentation": {}
+    },
+    {
+        "label": "Poly3DCollection",
+        "importPath": "mpl_toolkits.mplot3d.art3d",
+        "description": "mpl_toolkits.mplot3d.art3d",
+        "isExtraImport": true,
+        "detail": "mpl_toolkits.mplot3d.art3d",
+        "documentation": {}
+    },
+    {
+        "label": "tqdm",
+        "importPath": "tqdm",
+        "description": "tqdm",
+        "isExtraImport": true,
+        "detail": "tqdm",
+        "documentation": {}
+    },
+    {
+        "label": "tqdm",
+        "importPath": "tqdm",
+        "description": "tqdm",
+        "isExtraImport": true,
+        "detail": "tqdm",
+        "documentation": {}
+    },
+    {
+        "label": "subprocess",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "subprocess",
+        "description": "subprocess",
+        "detail": "subprocess",
+        "documentation": {}
+    },
+    {
+        "label": "random",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "random",
+        "description": "random",
+        "detail": "random",
+        "documentation": {}
+    },
+    {
+        "label": "GWO",
+        "importPath": "src.core.gwo",
+        "description": "src.core.gwo",
+        "isExtraImport": true,
+        "detail": "src.core.gwo",
+        "documentation": {}
+    },
+    {
+        "label": "UAV_SetUp",
+        "importPath": "src.core.uav_setup",
+        "description": "src.core.uav_setup",
+        "isExtraImport": true,
+        "detail": "src.core.uav_setup",
+        "documentation": {}
+    },
+    {
+        "label": "ObjFun",
+        "importPath": "src.core.obj_fun",
+        "description": "src.core.obj_fun",
+        "isExtraImport": true,
+        "detail": "src.core.obj_fun",
+        "documentation": {}
+    },
+    {
+        "label": "export_animation_data",
+        "importPath": "src.utils.export",
+        "description": "src.utils.export",
+        "isExtraImport": true,
+        "detail": "src.utils.export",
+        "documentation": {}
+    },
+    {
+        "label": "PathAnimator",
+        "importPath": "src.visualization.animation",
+        "description": "src.visualization.animation",
+        "isExtraImport": true,
+        "detail": "src.visualization.animation",
+        "documentation": {}
+    },
+    {
+        "label": "save_animation",
+        "importPath": "src.visualization.animation",
+        "description": "src.visualization.animation",
+        "isExtraImport": true,
+        "detail": "src.visualization.animation",
+        "documentation": {}
+    },
+    {
+        "label": "GWO",
+        "kind": 2,
+        "importPath": "src.core.gwo",
+        "description": "src.core.gwo",
+        "peekOfCode": "def GWO(UAV, SearchAgents, Max_iter, seed):\n    # Set the seed for reproducibility\n    np.random.seed(seed)\n    dim = UAV[\"PointNum\"] * UAV[\"PointDim\"]\n    # Initialize positions\n    Positions = np.random.uniform(\n        low=np.tile(\n            [UAV[\"limt\"][\"x\"][0], UAV[\"limt\"][\"y\"][0], UAV[\"limt\"][\"z\"][0]],\n            UAV[\"PointNum\"],\n        ),",
+        "detail": "src.core.gwo",
+        "documentation": {}
+    },
+    {
+        "label": "save_iteration_image",
+        "kind": 2,
+        "importPath": "src.core.gwo",
+        "description": "src.core.gwo",
+        "peekOfCode": "def save_iteration_image(iteration, positions, uav_setup):\n    fig = plt.figure()\n    ax = fig.add_subplot(111, projection=\"3d\")\n    positions_reshaped = positions.reshape(\n        -1, uav_setup[\"PointNum\"], uav_setup[\"PointDim\"]\n    )\n    for path in positions_reshaped:\n        ax.plot(path[:, 0], path[:, 1], path[:, 2], marker=\"o\")\n    # Mark start and goal positions\n    ax.scatter(",
+        "detail": "src.core.gwo",
+        "documentation": {}
+    },
+    {
+        "label": "ObjFun",
+        "kind": 2,
+        "importPath": "src.core.obj_fun",
+        "description": "src.core.obj_fun",
+        "peekOfCode": "def ObjFun(position, UAV):\n    path = np.vstack((UAV['S'], position.reshape(-1, UAV['PointDim']), UAV['G']))\n    # Calculate total distance\n    distances = np.linalg.norm(path[1:] - path[:-1], axis=1)\n    total_distance = np.sum(distances)\n    # Check for collisions\n    collision_penalty = check_collisions(path, UAV['NoFlyZones'])\n    # Objective function: heavily penalize collisions, but prioritize distance minimization\n    fitness = total_distance + 1e6 * collision_penalty\n    return fitness",
+        "detail": "src.core.obj_fun",
+        "documentation": {}
+    },
+    {
+        "label": "check_collisions",
+        "kind": 2,
+        "importPath": "src.core.obj_fun",
+        "description": "src.core.obj_fun",
+        "peekOfCode": "def check_collisions(path, no_fly_zones):\n    collision_count = 0\n    for i in range(len(path) - 1):\n        start = path[i]\n        end = path[i+1]\n        for zone in no_fly_zones:\n            if line_cylinder_intersection(start, end, zone):\n                collision_count += 1\n                break  # Count only one collision per path segment\n    return collision_count",
+        "detail": "src.core.obj_fun",
+        "documentation": {}
+    },
+    {
+        "label": "line_cylinder_intersection",
+        "kind": 2,
+        "importPath": "src.core.obj_fun",
+        "description": "src.core.obj_fun",
+        "peekOfCode": "def line_cylinder_intersection(start, end, cylinder):\n    x, y, height, radius = cylinder\n    center = np.array([x, y, 0])  # Cylinder base center\n    # Vector from start to end\n    d = end - start\n    # Vector from cylinder base center to start point\n    f = start - center\n    # Coefficients of quadratic equation\n    a = np.dot(d[:2], d[:2])\n    b = 2 * np.dot(f[:2], d[:2])",
+        "detail": "src.core.obj_fun",
+        "documentation": {}
+    },
+    {
+        "label": "UAV_SetUp",
+        "kind": 2,
+        "importPath": "src.core.uav_setup",
+        "description": "src.core.uav_setup",
+        "peekOfCode": "def UAV_SetUp():\n    UAV = {}\n    UAV[\"S\"] = np.array([2, 2, 15])  # Start position (x,y,z)\n    UAV[\"G\"] = np.array([18, 18, 8])  # End position (x,y,z)\n    UAV[\"PointNum\"] = 4  # Number of navigation points for the UAV\n    UAV[\"PointDim\"] = UAV[\"S\"].shape[0]\n    # Updated no-fly zones (x, y, height, radius)\n    UAV[\"NoFlyZones\"] = np.array(\n        [\n            [5, 5, 12, 2],",
+        "detail": "src.core.uav_setup",
+        "documentation": {}
+    },
+    {
+        "label": "is_position_valid",
+        "kind": 2,
+        "importPath": "src.core.uav_setup",
+        "description": "src.core.uav_setup",
+        "peekOfCode": "def is_position_valid(position, no_fly_zones):\n    for zone in no_fly_zones:\n        x, y, height, radius = zone\n        dx = position[0] - x\n        dy = position[1] - y\n        distance_2d = np.sqrt(dx**2 + dy**2)\n        if distance_2d <= radius and 0 <= position[2] <= height:\n            return False\n    return True",
+        "detail": "src.core.uav_setup",
+        "documentation": {}
+    },
+    {
+        "label": "NumpyEncoder",
+        "kind": 6,
+        "importPath": "src.utils.encoders",
+        "description": "src.utils.encoders",
+        "peekOfCode": "class NumpyEncoder(json.JSONEncoder):\n    \"\"\"JSON encoder that handles NumPy arrays.\"\"\"\n    def default(self, obj):\n        if isinstance(obj, np.ndarray):\n            return obj.tolist()\n        return json.JSONEncoder.default(self, obj)",
+        "detail": "src.utils.encoders",
+        "documentation": {}
+    },
+    {
+        "label": "export_animation_data",
+        "kind": 2,
+        "importPath": "src.utils.export",
+        "description": "src.utils.export",
+        "peekOfCode": "def export_animation_data(solution, UAV, filename='animation_export.json'):\n    \"\"\"Export animation data to JSON file.\"\"\"\n    export_data = {\n        'all_paths': solution['all_paths'],\n        'UAV': {\n            'S': UAV['S'],\n            'G': UAV['G'],\n            'NoFlyZones': UAV['NoFlyZones'],\n            'limt': UAV['limt'],\n            'PointNum': UAV['PointNum'],",
+        "detail": "src.utils.export",
+        "documentation": {}
+    },
+    {
+        "label": "PathAnimator",
+        "kind": 6,
+        "importPath": "src.visualization.animation",
+        "description": "src.visualization.animation",
+        "peekOfCode": "class PathAnimator:\n    def __init__(self, UAV, obj_fun):\n        self.UAV = UAV\n        self.obj_fun = obj_fun\n        self.fig, self.ax = setup_3d_plot()\n        setup_plot_style(self.ax, self.fig, UAV)\n        self._setup_scene()\n    def _setup_scene(self):\n        \"\"\"Setup the basic scene elements.\"\"\"\n        # Add start and end points",
+        "detail": "src.visualization.animation",
+        "documentation": {}
+    },
+    {
+        "label": "save_animation",
+        "kind": 2,
+        "importPath": "src.visualization.animation",
+        "description": "src.visualization.animation",
+        "peekOfCode": "def save_animation(anim, total_frames, filename=\"path_animation.mp4\", fps=30):\n    \"\"\"Save the animation to a file.\"\"\"\n    writer = animation.FFMpegWriter(\n        fps=fps,\n        metadata=dict(artist=\"GWO Path Planner\"),\n        bitrate=10000,\n        codec=\"mpeg4\",\n        extra_args=[\"-pix_fmt\", \"yuv420p\"],\n    )\n    print(\"Saving animation...\")",
+        "detail": "src.visualization.animation",
+        "documentation": {}
+    },
+    {
+        "label": "setup_plot_style",
+        "kind": 2,
+        "importPath": "src.visualization.config",
+        "description": "src.visualization.config",
+        "peekOfCode": "def setup_plot_style(ax, fig, UAV):\n    \"\"\"Configure the 3D plot style.\"\"\"\n    import matplotlib.pyplot as plt\n    import numpy as np\n    plt.style.use('dark_background')\n    # Set background color\n    ax.set_facecolor(COLORS['main']['background'])\n    fig.patch.set_facecolor(COLORS['main']['background'])\n    # Adjust the plot area\n    ax.set_position([0.25, 0.1, 0.7, 0.8])",
+        "detail": "src.visualization.config",
+        "documentation": {}
+    },
+    {
+        "label": "setup_3d_plot",
+        "kind": 2,
+        "importPath": "src.visualization.config",
+        "description": "src.visualization.config",
+        "peekOfCode": "def setup_3d_plot(figsize=(19.2, 10.8)):\n    \"\"\"Create and return a 3D plot with the correct configuration.\"\"\"\n    import matplotlib.pyplot as plt\n    fig = plt.figure(figsize=figsize, dpi=DPI)\n    ax = fig.add_subplot(111, projection='3d')\n    return fig, ax\ndef add_colorbar(fig, ax):\n    \"\"\"Add a custom colorbar to the plot.\"\"\"\n    import matplotlib.pyplot as plt\n    custom_cmap = plt.cm.colors.LinearSegmentedColormap.from_list(\"\", [",
+        "detail": "src.visualization.config",
+        "documentation": {}
+    },
+    {
+        "label": "add_colorbar",
+        "kind": 2,
+        "importPath": "src.visualization.config",
+        "description": "src.visualization.config",
+        "peekOfCode": "def add_colorbar(fig, ax):\n    \"\"\"Add a custom colorbar to the plot.\"\"\"\n    import matplotlib.pyplot as plt\n    custom_cmap = plt.cm.colors.LinearSegmentedColormap.from_list(\"\", [\n        COLORS['secondary']['red'],\n        COLORS['secondary']['yellow'],\n        COLORS['secondary']['green']\n    ])\n    sm = plt.cm.ScalarMappable(cmap=custom_cmap, norm=plt.Normalize(vmin=0, vmax=1))\n    sm.set_array([])",
+        "detail": "src.visualization.config",
+        "documentation": {}
+    },
+    {
+        "label": "COLORS",
+        "kind": 5,
+        "importPath": "src.visualization.config",
+        "description": "src.visualization.config",
+        "peekOfCode": "COLORS = {\n    'main': {\n        'background': '#252426',\n        'primary1': '#F0A050',\n        'primary2': '#C07830',\n        'primary3': '#E0C0A0',\n        'primary4': '#805030'\n    },\n    'secondary': {\n        'red': '#E04040',",
+        "detail": "src.visualization.config",
+        "documentation": {}
+    },
+    {
+        "label": "DPI",
+        "kind": 5,
+        "importPath": "src.visualization.config",
+        "description": "src.visualization.config",
+        "peekOfCode": "DPI = 100\nFPS = 30\nDURATION = 10  # Duration in seconds\nROTATION_ANGLE = 360  # Two full rotations\ndef setup_plot_style(ax, fig, UAV):\n    \"\"\"Configure the 3D plot style.\"\"\"\n    import matplotlib.pyplot as plt\n    import numpy as np\n    plt.style.use('dark_background')\n    # Set background color",
+        "detail": "src.visualization.config",
+        "documentation": {}
+    },
+    {
+        "label": "FPS",
+        "kind": 5,
+        "importPath": "src.visualization.config",
+        "description": "src.visualization.config",
+        "peekOfCode": "FPS = 30\nDURATION = 10  # Duration in seconds\nROTATION_ANGLE = 360  # Two full rotations\ndef setup_plot_style(ax, fig, UAV):\n    \"\"\"Configure the 3D plot style.\"\"\"\n    import matplotlib.pyplot as plt\n    import numpy as np\n    plt.style.use('dark_background')\n    # Set background color\n    ax.set_facecolor(COLORS['main']['background'])",
+        "detail": "src.visualization.config",
+        "documentation": {}
+    },
+    {
+        "label": "DURATION",
+        "kind": 5,
+        "importPath": "src.visualization.config",
+        "description": "src.visualization.config",
+        "peekOfCode": "DURATION = 10  # Duration in seconds\nROTATION_ANGLE = 360  # Two full rotations\ndef setup_plot_style(ax, fig, UAV):\n    \"\"\"Configure the 3D plot style.\"\"\"\n    import matplotlib.pyplot as plt\n    import numpy as np\n    plt.style.use('dark_background')\n    # Set background color\n    ax.set_facecolor(COLORS['main']['background'])\n    fig.patch.set_facecolor(COLORS['main']['background'])",
+        "detail": "src.visualization.config",
+        "documentation": {}
+    },
+    {
+        "label": "ROTATION_ANGLE",
+        "kind": 5,
+        "importPath": "src.visualization.config",
+        "description": "src.visualization.config",
+        "peekOfCode": "ROTATION_ANGLE = 360  # Two full rotations\ndef setup_plot_style(ax, fig, UAV):\n    \"\"\"Configure the 3D plot style.\"\"\"\n    import matplotlib.pyplot as plt\n    import numpy as np\n    plt.style.use('dark_background')\n    # Set background color\n    ax.set_facecolor(COLORS['main']['background'])\n    fig.patch.set_facecolor(COLORS['main']['background'])\n    # Adjust the plot area",
+        "detail": "src.visualization.config",
+        "documentation": {}
+    },
+    {
+        "label": "load_animation_data",
+        "kind": 2,
+        "importPath": "src.visualization.utils",
+        "description": "src.visualization.utils",
+        "peekOfCode": "def load_animation_data(filename='animation_export.json'):\n    \"\"\"Load animation data from JSON file.\"\"\"\n    with open(filename, 'r') as f:\n        data = json.load(f)\n    # Convert lists back to numpy arrays where necessary\n    data['UAV']['S'] = np.array(data['UAV']['S'])\n    data['UAV']['G'] = np.array(data['UAV']['G'])\n    data['UAV']['NoFlyZones'] = np.array(data['UAV']['NoFlyZones'])\n    data['Fitness_list'] = np.array(data['Fitness_list'])\n    return data",
+        "detail": "src.visualization.utils",
+        "documentation": {}
+    },
+    {
+        "label": "interpolate_paths",
+        "kind": 2,
+        "importPath": "src.visualization.utils",
+        "description": "src.visualization.utils",
+        "peekOfCode": "def interpolate_paths(paths, frames_per_iteration):\n    \"\"\"Interpolate between path points for smooth animation.\"\"\"\n    interpolated_paths = []\n    total_frames = (len(paths) - 1) * frames_per_iteration\n    with tqdm(total=total_frames, desc=\"Interpolating paths\") as pbar:\n        for i in range(len(paths) - 1):\n            for j in range(frames_per_iteration):\n                t = j / frames_per_iteration\n                frame = []\n                for wolf_path_start, wolf_path_end in zip(paths[i], paths[i+1]):",
+        "detail": "src.visualization.utils",
+        "documentation": {}
+    },
+    {
+        "label": "create_cylinder",
+        "kind": 2,
+        "importPath": "src.visualization.utils",
+        "description": "src.visualization.utils",
+        "peekOfCode": "def create_cylinder(center_x, center_y, height, radius, resolution=20):\n    \"\"\"Create cylinder coordinates for visualization.\"\"\"\n    theta = np.linspace(0, 2*np.pi, resolution)\n    z = np.linspace(0, height, 2)\n    theta, z = np.meshgrid(theta, z)\n    x = radius * np.cos(theta) + center_x\n    y = radius * np.sin(theta) + center_y\n    # Create top circle\n    theta_top = np.linspace(0, 2*np.pi, resolution)\n    x_top = radius * np.cos(theta_top) + center_x",
+        "detail": "src.visualization.utils",
+        "documentation": {}
+    },
+    {
+        "label": "precompute_animation_data",
+        "kind": 2,
+        "importPath": "src.visualization.utils",
+        "description": "src.visualization.utils",
+        "peekOfCode": "def precompute_animation_data(all_paths, UAV, obj_fun, fps, duration):\n    \"\"\"Precompute all animation data for smoother rendering.\"\"\"\n    frames_per_iteration = int(fps * duration / len(all_paths))\n    smooth_paths = interpolate_paths(all_paths, frames_per_iteration)\n    precomputed_data = []\n    print(\"Precomputing animation data...\")\n    for frame, current_paths in enumerate(tqdm(smooth_paths)):\n        fitnesses = [obj_fun(np.array(path).flatten(), UAV) for path in current_paths]\n        min_fitness = min(fitnesses)\n        max_fitness = max(fitnesses)",
+        "detail": "src.visualization.utils",
+        "documentation": {}
+    },
+    {
+        "label": "get_path_color",
+        "kind": 2,
+        "importPath": "src.visualization.utils",
+        "description": "src.visualization.utils",
+        "peekOfCode": "def get_path_color(quality):\n    \"\"\"Get color based on path quality.\"\"\"\n    if quality < 0.33:\n        return COLORS['secondary']['red']\n    elif quality < 0.67:\n        return COLORS['secondary']['yellow']\n    else:\n        return COLORS['secondary']['green']",
+        "detail": "src.visualization.utils",
+        "documentation": {}
+    },
+    {
+        "label": "set_seed",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def set_seed(seed=None):\n    \"\"\"Set random seed for reproducibility.\"\"\"\n    if seed is None:\n        seed = random.randint(0, 100000)\n    np.random.seed(seed)\n    random.seed(seed)\n    return seed\ndef main():\n    # Algorithm parameters\n    SearchAgents = 30",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def main():\n    # Algorithm parameters\n    SearchAgents = 30\n    Max_iter = 200\n    # Setup\n    UAV = UAV_SetUp()\n    seed = set_seed(None)  # Change to an integer for a fixed seed\n    print(f\"Using seed: {seed}\")\n    # Run optimization\n    solution = GWO(UAV, SearchAgents, Max_iter, seed)",
+        "detail": "main",
+        "documentation": {}
+    }
+]
