@@ -4,7 +4,7 @@ import time
 import matplotlib.pyplot as plt
 
 
-def GWO(UAV, SearchAgents, Max_iter, seed):
+def GWO(UAV, SearchAgents, Max_iter, seed, is_normal=True, dynamic_g=0.5):
     # Set the seed for reproducibility
     np.random.seed(seed)
 
@@ -44,6 +44,10 @@ def GWO(UAV, SearchAgents, Max_iter, seed):
             # Evaluate fitness
             fitness = ObjFun(Positions[i], UAV)
 
+            # Used for calculating dynamic weighted average
+            Alpha = Alpha_score
+            Beta = Beta_score
+            Delta = Delta_score
             # Update Alpha, Beta, and Delta
             if fitness < Alpha_score:
                 Alpha_score, Alpha_pos = fitness, np.copy(Positions[i])
@@ -53,7 +57,11 @@ def GWO(UAV, SearchAgents, Max_iter, seed):
                 Delta_score, Delta_pos = fitness, np.copy(Positions[i])
 
         # Update positions
-        a = 2 - iter * (2 / Max_iter)  # Linear decrease
+        a = 0
+        if is_normal:  # Linear decrease: 2 - iter * (2/Max_iter)
+            a = 2 - iter * (2 / Max_iter)
+        else:  # Non-linear decrease: 2cos((iter/Max_iter)*(π/2))
+            a = 2 * np.cos((iter / Max_iter) * (np.pi / 2))
         for i in range(SearchAgents):
             for j in range(dim):
                 r1, r2 = np.random.rand(2)
@@ -71,8 +79,18 @@ def GWO(UAV, SearchAgents, Max_iter, seed):
                 D_delta = np.abs(C3 * Delta_pos[j] - Positions[i, j])
                 X3 = Delta_pos[j] - A3 * D_delta
 
-                Positions[i, j] = (X1 + X2 + X3) / 3
-        
+                # Update position with
+                if is_normal:  # static average
+                    Positions[i, j] = (X1 + X2 + X3) / 3
+                else:
+                    g = dynamic_g  # NOTE: dynamic nubmer
+                    q = g * a  # threshold for dynamic weighted average
+                    if abs(Alpha - Delta) > q:  # dynamic weighted average
+                        vr = Alpha + Beta + Delta
+                        Positions[i, j] = (Alpha * X1 + Beta * X2 + Delta * X3) / vr
+                    else:  # static average
+                        Positions[i, j] = (X1 + X2 + X3) / 3
+
         # Save iteration image
         # save_iteration_image(iter, Positions, UAV)
 

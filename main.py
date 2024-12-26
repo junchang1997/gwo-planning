@@ -24,10 +24,11 @@ def main():
     # Setup
     UAV = UAV_SetUp()
     seed = set_seed(None)  # Change to an integer for a fixed seed
-    print(f"Using seed: {seed}")
+    # print(f"Using seed: {seed}")
 
+    is_normal = True
     # Run optimization
-    solution = GWO(UAV, SearchAgents, Max_iter, seed)
+    solution = GWO(UAV, SearchAgents, Max_iter, seed, is_normal=is_normal)
 
     # Export data
     export_animation_data(solution, UAV)
@@ -35,9 +36,25 @@ def main():
     # Create and save animation
     animator = PathAnimator(UAV, ObjFun)
     animation, total_frames = animator.create_animation(solution["all_paths"])
-    save_animation(animation, total_frames)
+    video_filename = "normal_gwo.mp4" if is_normal else "imporve_gwo.mp4"
+    save_animation(animation, total_frames, filename=video_filename)
 
-    print(f"Optimization completed and animation saved. Seed used: {seed}")
+    is_normal = False
+    # Run optimization
+    solution = GWO(
+        UAV, SearchAgents, Max_iter, seed, is_normal=is_normal, dynamic_g=0.7
+    )
+
+    # Export data
+    export_animation_data(solution, UAV)
+
+    # Create and save animation
+    animator = PathAnimator(UAV, ObjFun)
+    animation, total_frames = animator.create_animation(solution["all_paths"])
+    video_filename = "normal_gwo.mp4" if is_normal else "imporve_gwo.mp4"
+    save_animation(animation, total_frames, filename=video_filename)
+
+    # print(f"Optimization completed and animation saved. Seed used: {seed}")
 
 
 if __name__ == "__main__":
