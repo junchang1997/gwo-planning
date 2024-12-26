@@ -4,7 +4,7 @@ import time
 import matplotlib.pyplot as plt
 
 
-def GWO(UAV, SearchAgents, Max_iter, seed, is_normal=True, dynamic_g=0.5):
+def GWO(UAV, SearchAgents, Max_iter, seed, is_normal=True, dynamic_g=100):
     # Set the seed for reproducibility
     np.random.seed(seed)
 

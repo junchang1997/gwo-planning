@@ -43,7 +43,7 @@ def main():
     is_normal = False
     # Run optimization
     solution = GWO(
-        UAV, SearchAgents, Max_iter, seed, is_normal=is_normal, dynamic_g=0.1
+        UAV, SearchAgents, Max_iter, seed, is_normal=is_normal, dynamic_g=50
     )
 
     # Export data

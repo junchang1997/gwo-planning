@@ -155,7 +155,7 @@
         "kind": 2,
         "importPath": "src.core.gwo",
         "description": "src.core.gwo",
-        "peekOfCode": "def GWO(UAV, SearchAgents, Max_iter, seed, is_normal=True, dynamic_g=0.5):\n    # Set the seed for reproducibility\n    np.random.seed(seed)\n    dim = UAV[\"PointNum\"] * UAV[\"PointDim\"]\n    # Initialize positions\n    Positions = None\n    if is_normal:\n        Positions = np.random.uniform(\n            low=np.tile(\n                [UAV[\"limt\"][\"x\"][0], UAV[\"limt\"][\"y\"][0], UAV[\"limt\"][\"z\"][0]],",
+        "peekOfCode": "def GWO(UAV, SearchAgents, Max_iter, seed, is_normal=True, dynamic_g=100):\n    # Set the seed for reproducibility\n    np.random.seed(seed)\n    dim = UAV[\"PointNum\"] * UAV[\"PointDim\"]\n    # Initialize positions\n    Positions = None\n    if is_normal:\n        Positions = np.random.uniform(\n            low=np.tile(\n                [UAV[\"limt\"][\"x\"][0], UAV[\"limt\"][\"y\"][0], UAV[\"limt\"][\"z\"][0]],",
         "detail": "src.core.gwo",
         "documentation": {}
     },
@@ -173,7 +173,7 @@
         "kind": 2,
         "importPath": "src.core.obj_fun",
         "description": "src.core.obj_fun",
-        "peekOfCode": "def ObjFun(position, UAV):\n    path = np.vstack((UAV[\"S\"], position.reshape(-1, UAV[\"PointDim\"]), UAV[\"G\"]))\n    # Calculate total distance\n    distances = np.linalg.norm(path[1:] - path[:-1], axis=1)\n    total_distance = np.sum(distances)\n    # Check for collisions\n    collision_penalty = check_collisions(path, UAV[\"NoFlyZones\"])\n    # Objective function: heavily penalize collisions, but prioritize distance minimization\n    w1 = 0.0001\n    w2 = 1 - w1",
+        "peekOfCode": "def ObjFun(position, UAV):\n    path = np.vstack((UAV[\"S\"], position.reshape(-1, UAV[\"PointDim\"]), UAV[\"G\"]))\n    # Calculate total distance\n    distances = np.linalg.norm(path[1:] - path[:-1], axis=1)\n    total_distance = np.sum(distances)\n    # Check for collisions\n    collision_penalty = check_collisions(path, UAV[\"NoFlyZones\"])\n    # Objective function: heavily penalize collisions, but prioritize distance minimization\n    w1 = 0.3\n    w2 = 0.4",
         "detail": "src.core.obj_fun",
         "documentation": {}
     },
@@ -200,7 +200,7 @@
         "kind": 2,
         "importPath": "src.core.uav_setup",
         "description": "src.core.uav_setup",
-        "peekOfCode": "def UAV_SetUp():\n    UAV = {}\n    UAV[\"S\"] = np.array([2, 2, 15])  # Start position (x,y,z)\n    UAV[\"G\"] = np.array([18, 18, 8])  # End position (x,y,z)\n    UAV[\"PointNum\"] = 4  # Number of navigation points for the UAV\n    UAV[\"PointDim\"] = UAV[\"S\"].shape[0]\n    # Updated no-fly zones (x, y, height, radius)\n    UAV[\"NoFlyZones\"] = np.array(\n        [\n            [5, 5, 12, 2],",
+        "peekOfCode": "def UAV_SetUp():\n    UAV = {}\n    UAV[\"S\"] = np.array([2, 2, 25])  # Start position (x,y,z)\n    UAV[\"G\"] = np.array([28, 28, 5])  # End position (x,y,z)\n    UAV[\"PointNum\"] = 4  # Number of navigation points for the UAV\n    UAV[\"PointDim\"] = UAV[\"S\"].shape[0]\n    # Updated no-fly zones (x, y, height, radius)\n    UAV[\"NoFlyZones\"] = np.array(\n        [\n            [5, 5, 22, 2],",
         "detail": "src.core.uav_setup",
         "documentation": {}
     },
