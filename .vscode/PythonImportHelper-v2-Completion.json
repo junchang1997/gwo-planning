@@ -173,7 +173,7 @@
         "kind": 2,
         "importPath": "src.core.obj_fun",
         "description": "src.core.obj_fun",
-        "peekOfCode": "def ObjFun(position, UAV):\n    path = np.vstack((UAV[\"S\"], position.reshape(-1, UAV[\"PointDim\"]), UAV[\"G\"]))\n    # Calculate total distance\n    distances = np.linalg.norm(path[1:] - path[:-1], axis=1)\n    total_distance = np.sum(distances)\n    # Check for collisions\n    collision_penalty = check_collisions(path, UAV[\"NoFlyZones\"])\n    # Objective function: heavily penalize collisions, but prioritize distance minimization\n    w1 = 0.3\n    w2 = 0.4",
+        "peekOfCode": "def ObjFun(position, UAV):\n    path = np.vstack((UAV[\"S\"], position.reshape(-1, UAV[\"PointDim\"]), UAV[\"G\"]))\n    # Calculate total distance\n    distances = np.linalg.norm(path[1:] - path[:-1], axis=1)\n    total_distance = np.sum(distances)\n    # Check for collisions\n    collision_penalty = check_collisions(path, UAV[\"NoFlyZones\"])\n    # Objective function: heavily penalize collisions, but prioritize distance minimization\n    w1 = 0.3\n    w2 = 0.5",
         "detail": "src.core.obj_fun",
         "documentation": {}
     },

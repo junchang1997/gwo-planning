@@ -46,8 +46,12 @@ def GWO(UAV, SearchAgents, Max_iter, seed, is_normal=True, dynamic_g=100):
 
     # Main loop
     start_time = time.time()
-    print(">>GWO Optimization in progress    00.00%", end="", flush=True)
-
+    text = ""
+    if is_normal:
+        text = "Normal GWO"
+    else:
+        text = "Imporve GWO"
+    print(f">>{text} Optimization in progress    00.00%", end="", flush=True)
     for iter in range(Max_iter):
         # Store current paths
         all_paths.append(
@@ -127,7 +131,7 @@ def GWO(UAV, SearchAgents, Max_iter, seed, is_normal=True, dynamic_g=100):
         # Print progress
         progress = (iter + 1) / Max_iter * 100
         print(
-            f"\r>>GWO Optimization in progress    {progress:.2f}% | Best fitness: {Alpha_score:.4f}",
+            f"\r>>{text} Optimization in progress    {progress:.2f}% | Best fitness: {Alpha_score:.4f}",
             end="",
             flush=True,
         )

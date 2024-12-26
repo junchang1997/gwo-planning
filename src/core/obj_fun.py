@@ -13,7 +13,7 @@ def ObjFun(position, UAV):
 
     # Objective function: heavily penalize collisions, but prioritize distance minimization
     w1 = 0.3
-    w2 = 0.4
+    w2 = 0.5
     fitness = w1 * total_distance + w2 * collision_penalty
     return fitness
 
