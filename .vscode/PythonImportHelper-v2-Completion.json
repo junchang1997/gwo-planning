@@ -160,11 +160,20 @@
         "documentation": {}
     },
     {
-        "label": "save_iteration_image",
+        "label": "save_iteration_image_2D",
         "kind": 2,
         "importPath": "src.core.gwo",
         "description": "src.core.gwo",
-        "peekOfCode": "def save_iteration_image(iteration, positions, uav_setup):\n    fig = plt.figure()\n    ax = fig.add_subplot(111, projection=\"3d\")\n    positions_reshaped = positions.reshape(\n        -1, uav_setup[\"PointNum\"], uav_setup[\"PointDim\"]\n    )\n    for path in positions_reshaped:\n        ax.plot(path[:, 0], path[:, 1], path[:, 2], marker=\"o\")\n    # Mark start and goal positions\n    ax.scatter(",
+        "peekOfCode": "def save_iteration_image_2D(iteration, positions, UAV, is_normal=True):\n    fig, ax = plt.subplots()\n    # Set white background\n    fig.patch.set_facecolor(\"white\")\n    ax.set_facecolor(\"white\")\n    # Plot the UAV path\n    for pos in positions:\n        path = np.vstack((UAV[\"S\"], pos.reshape(-1, UAV[\"PointDim\"]), UAV[\"G\"]))\n        ax.plot(path[:, 0], path[:, 1], \"b-\", alpha=0.5)\n        plt.xticks(range(0,501,100))",
+        "detail": "src.core.gwo",
+        "documentation": {}
+    },
+    {
+        "label": "save_iteration_image_3D",
+        "kind": 2,
+        "importPath": "src.core.gwo",
+        "description": "src.core.gwo",
+        "peekOfCode": "def save_iteration_image_3D(iteration, positions, UAV, is_normal=True):\n    fig = plt.figure()\n    ax = fig.add_subplot(111, projection='3d')\n    # Set white background\n    fig.patch.set_facecolor('white')\n    ax.set_facecolor('white')\n    # Plot the UAV path\n    for pos in positions:\n        path = np.vstack((UAV[\"S\"], pos.reshape(-1, UAV[\"PointDim\"]), UAV[\"G\"]))\n        ax.plot(path[:, 0], path[:, 1], path[:, 2], 'b-', alpha=0.5)",
         "detail": "src.core.gwo",
         "documentation": {}
     },
@@ -173,7 +182,25 @@
         "kind": 2,
         "importPath": "src.core.obj_fun",
         "description": "src.core.obj_fun",
-        "peekOfCode": "def ObjFun(position, UAV):\n    path = np.vstack((UAV[\"S\"], position.reshape(-1, UAV[\"PointDim\"]), UAV[\"G\"]))\n    # Calculate total distance\n    distances = np.linalg.norm(path[1:] - path[:-1], axis=1)\n    total_distance = np.sum(distances)\n    # Check for collisions\n    collision_penalty = check_collisions(path, UAV[\"NoFlyZones\"])\n    # Objective function: heavily penalize collisions, but prioritize distance minimization\n    w1 = 0.3\n    w2 = 0.5",
+        "peekOfCode": "def ObjFun(position, UAV):\n    path = np.vstack((UAV[\"S\"], position.reshape(-1, UAV[\"PointDim\"]), UAV[\"G\"]))\n    # Calculate total distance\n    distances = np.linalg.norm(path[1:] - path[:-1], axis=1)\n    total_distance = np.sum(distances)\n    # Check for collisions\n    # NOTE: calculate the number of points inside the no-fly zones\n    # collision_penalty = check_collisions(path, UAV[\"NoFlyZones\"])\n    # NOTE: calculate the distance of points inside the no-fly zones\n    collision_penalty = calculate_no_fly_zones_distance(path, UAV[\"NoFlyZones\"])",
+        "detail": "src.core.obj_fun",
+        "documentation": {}
+    },
+    {
+        "label": "calculate_no_fly_zones_distance",
+        "kind": 2,
+        "importPath": "src.core.obj_fun",
+        "description": "src.core.obj_fun",
+        "peekOfCode": "def calculate_no_fly_zones_distance(path, no_fly_zones):\n    # check collisions\n    result = 0\n    for point in path:\n        for zone in no_fly_zones:\n            _is, distance = is_point_in_no_fly_zone(point, zone)\n            if _is:\n                result += distance\n            # result += distance # distance whit all no fly zones\n    return result",
+        "detail": "src.core.obj_fun",
+        "documentation": {}
+    },
+    {
+        "label": "is_point_in_no_fly_zone",
+        "kind": 2,
+        "importPath": "src.core.obj_fun",
+        "description": "src.core.obj_fun",
+        "peekOfCode": "def is_point_in_no_fly_zone(point, zone):\n    distance_threshold = 0.2  # setting safe distance with the no fly zone\n    x, y, height, radius = zone\n    center = np.array([x, y, 0])  # Cylinder base center\n    # Calculate distance from point to cylinder center in XY plane\n    distance_xy = np.linalg.norm(point[:2] - center[:2])\n    # Check if point is within cylinder radius and height\n    safe_distance = radius + distance_threshold\n    if distance_xy <= safe_distance and 0 <= point[2] <= height:\n        return True, distance_xy  # inside",
         "detail": "src.core.obj_fun",
         "documentation": {}
     },
@@ -200,7 +227,7 @@
         "kind": 2,
         "importPath": "src.core.uav_setup",
         "description": "src.core.uav_setup",
-        "peekOfCode": "def UAV_SetUp():\n    UAV = {}\n    UAV[\"S\"] = np.array([2, 2, 25])  # Start position (x,y,z)\n    UAV[\"G\"] = np.array([28, 28, 5])  # End position (x,y,z)\n    UAV[\"PointNum\"] = 4  # Number of navigation points for the UAV\n    UAV[\"PointDim\"] = UAV[\"S\"].shape[0]\n    # Updated no-fly zones (x, y, height, radius)\n    UAV[\"NoFlyZones\"] = np.array(\n        [\n            [5, 5, 22, 2],",
+        "peekOfCode": "def UAV_SetUp():\n    UAV = {}\n    UAV[\"S\"] = np.array([10, 10, 25])  # Start position (x,y,z)\n    UAV[\"G\"] = np.array([500, 500, 300])  # End position (x,y,z)\n    UAV[\"PointNum\"] = 10  # Number of navigation points for the UAV\n    UAV[\"PointDim\"] = UAV[\"S\"].shape[0]\n    # Updated no-fly zones (x, y, height, radius)\n    UAV[\"NoFlyZones\"] = np.array(\n        [\n            [20, 50, 30, 10],",
         "detail": "src.core.uav_setup",
         "documentation": {}
     },
@@ -371,7 +398,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def set_seed(seed=None):\n    \"\"\"Set random seed for reproducibility.\"\"\"\n    if seed is None:\n        seed = random.randint(0, 100000)\n    np.random.seed(seed)\n    random.seed(seed)\n    return seed\ndef main():\n    # Algorithm parameters\n    SearchAgents = 20",
+        "peekOfCode": "def set_seed(seed=None):\n    \"\"\"Set random seed for reproducibility.\"\"\"\n    if seed is None:\n        seed = random.randint(0, 100000)\n    np.random.seed(seed)\n    random.seed(seed)\n    return seed\ndef main():\n    # Algorithm parameters\n    SearchAgents = 200",
         "detail": "main",
         "documentation": {}
     },
@@ -380,7 +407,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def main():\n    # Algorithm parameters\n    SearchAgents = 20\n    Max_iter = 200\n    # Setup\n    UAV = UAV_SetUp()\n    seed = set_seed(None)  # Change to an integer for a fixed seed\n    # print(f\"Using seed: {seed}\")\n    is_normal = True\n    # Run optimization",
+        "peekOfCode": "def main():\n    # Algorithm parameters\n    SearchAgents = 200\n    Max_iter = 100\n    # Setup\n    UAV = UAV_SetUp()\n    seed = set_seed(None)  # Change to an integer for a fixed seed\n    # print(f\"Using seed: {seed}\")\n    is_normal = True\n    # Run optimization",
         "detail": "main",
         "documentation": {}
     }

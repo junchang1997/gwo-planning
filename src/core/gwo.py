@@ -110,6 +110,9 @@ def GWO(UAV, SearchAgents, Max_iter, seed, is_normal=True, dynamic_g=100):
                         Positions[i, j] = (X1 + X2 + X3) / 3
 
         # Save iteration image
+        if (iter + 1) % 50 == 0:
+            save_iteration_image_2D(iter, Positions, UAV, is_normal=is_normal)
+            save_iteration_image_3D(iter, Positions, UAV, is_normal=is_normal)
         # save_iteration_image(iter, Positions, UAV)
 
         # Enforce bounds
@@ -151,49 +154,106 @@ def GWO(UAV, SearchAgents, Max_iter, seed, is_normal=True, dynamic_g=100):
     return solution
 
 
-def save_iteration_image(iteration, positions, uav_setup):
+def save_iteration_image_2D(iteration, positions, UAV, is_normal=True):
+    fig, ax = plt.subplots()
+
+    # Set white background
+    fig.patch.set_facecolor("white")
+    ax.set_facecolor("white")
+
+    # Plot the UAV path
+    for pos in positions:
+        path = np.vstack((UAV["S"], pos.reshape(-1, UAV["PointDim"]), UAV["G"]))
+        ax.plot(path[:, 0], path[:, 1], "b-", alpha=0.5)
+        plt.xticks(range(0,501,100))
+        plt.yticks(range(0,501,100))
+
+    # Plot the start and goal points
+    ax.plot(UAV["S"][0], UAV["S"][1], "go", label="Start")
+    ax.plot(UAV["G"][0], UAV["G"][1], "ro", label="Goal")
+
+    # Plot the no-fly zones
+    for zone in UAV["NoFlyZones"]:
+        circle = plt.Circle((zone[0], zone[1]), zone[3], color="r", alpha=0.3)
+        ax.add_patch(circle)
+
+    # Set axis labels and title
+    ax.set_xlabel("X")
+    ax.set_ylabel("Y")
+    ax.set_title(f"Iteration {iteration}")
+
+    # Set black axis lines
+    ax.spines["top"].set_color("black")
+    ax.spines["bottom"].set_color("black")
+    ax.spines["left"].set_color("black")
+    ax.spines["right"].set_color("black")
+    ax.xaxis.label.set_color("black")
+    ax.yaxis.label.set_color("black")
+    ax.title.set_color("black")
+    ax.tick_params(axis="x", colors="black")
+    ax.tick_params(axis="y", colors="black")
+
+    # Save the figure
+    plt.legend()
+    filename = "images/"
+    if is_normal:
+        filename += f"normal_iteration_{iteration}_2Dimage.png"
+    else:
+        filename += f"import_iteration_{iteration}_2Dimage.png"
+    
+    plt.savefig(filename, bbox_inches="tight")
+    plt.close()
+
+def save_iteration_image_3D(iteration, positions, UAV, is_normal=True):
     fig = plt.figure()
-    ax = fig.add_subplot(111, projection="3d")
-    positions_reshaped = positions.reshape(
-        -1, uav_setup["PointNum"], uav_setup["PointDim"]
-    )
-    for path in positions_reshaped:
-        ax.plot(path[:, 0], path[:, 1], path[:, 2], marker="o")
+    ax = fig.add_subplot(111, projection='3d')
 
-    # Mark start and goal positions
-    ax.scatter(
-        uav_setup["S"][0],
-        uav_setup["S"][1],
-        uav_setup["S"][2],
-        color="green",
-        label="Start",
-        s=100,  # Increase the size of the point
-        edgecolors="k",  # Add border color
-    )
-    ax.scatter(
-        uav_setup["G"][0],
-        uav_setup["G"][1],
-        uav_setup["G"][2],
-        color="red",
-        label="Goal",
-        s=100,  # Increase the size of the point
-        edgecolors="k",  # Add border color
-    )
+    # Set white background
+    fig.patch.set_facecolor('white')
+    ax.set_facecolor('white')
 
-    # Draw no-fly zones
-    for zone in uav_setup["NoFlyZones"]:
+    # Plot the UAV path
+    for pos in positions:
+        path = np.vstack((UAV["S"], pos.reshape(-1, UAV["PointDim"]), UAV["G"]))
+        ax.plot(path[:, 0], path[:, 1], path[:, 2], 'b-', alpha=0.5)
+
+    # Plot the start and goal points
+    ax.scatter(UAV["S"][0], UAV["S"][1], UAV["S"][2], c='g', marker='o', label='Start')
+    ax.scatter(UAV["G"][0], UAV["G"][1], UAV["G"][2], c='r', marker='o', label='Goal')
+
+    # Plot the no-fly zones as cylinders
+    for zone in UAV["NoFlyZones"]:
         x, y, height, radius = zone
-        z = np.linspace(0, height, 50)
-        theta = np.linspace(0, 2 * np.pi, 50)
+        z = np.linspace(0, height, 100)
+        theta = np.linspace(0, 2 * np.pi, 100)
         theta_grid, z_grid = np.meshgrid(theta, z)
         x_grid = radius * np.cos(theta_grid) + x
         y_grid = radius * np.sin(theta_grid) + y
-        ax.plot_surface(x_grid, y_grid, z_grid, color="r", alpha=0.3)
+        ax.plot_surface(x_grid, y_grid, z_grid, color='r', alpha=0.3)
 
-    ax.legend()
-    ax.set_title(f"Iteration {iteration}")
-    ax.set_xlabel("X")
-    ax.set_ylabel("Y")
-    ax.set_zlabel("Z")
-    plt.savefig(f"images/iteration_{iteration}.png")
+    
+     # Set axis labels and title
+    ax.set_xlabel('X')
+    ax.set_ylabel('Y')
+    ax.set_zlabel('Z')
+    ax.set_title(f'Iteration {iteration}')
+
+    # Set black axis lines
+    ax.xaxis.label.set_color('black')
+    ax.yaxis.label.set_color('black')
+    ax.zaxis.label.set_color('black')
+    ax.title.set_color('black')
+    ax.tick_params(axis='x', colors='black')
+    ax.tick_params(axis='y', colors='black')
+    ax.tick_params(axis='z', colors='black')
+
+    # Save the figure
+    plt.legend()
+    filename = "images/"
+    if is_normal:
+        filename += f"normal_iteration_{iteration}_3Dimage.png"
+    else:
+        filename += f"improve_iteration_{iteration}_3Dimage.png"
+    
+    plt.savefig(filename, bbox_inches="tight")
     plt.close()

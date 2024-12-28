@@ -18,8 +18,8 @@ def set_seed(seed=None):
 
 def main():
     # Algorithm parameters
-    SearchAgents = 20
-    Max_iter = 200
+    SearchAgents = 200
+    Max_iter = 100
 
     # Setup
     UAV = UAV_SetUp()
@@ -30,29 +30,29 @@ def main():
     # Run optimization
     solution = GWO(UAV, SearchAgents, Max_iter, seed, is_normal=is_normal)
 
-    # Export data
-    animation_filename = "normal_gwo.json" if is_normal else "imporve_gwo.json"
-    export_animation_data(solution, UAV, filename=animation_filename)
+    # # Export data
+    # animation_filename = "normal_gwo.json" if is_normal else "imporve_gwo.json"
+    # export_animation_data(solution, UAV, filename=animation_filename)
 
-    # Create and save animation
-    animator = PathAnimator(UAV, ObjFun)
-    animation, total_frames = animator.create_animation(solution["all_paths"])
-    video_filename = "normal_gwo.mp4" if is_normal else "imporve_gwo.mp4"
-    save_animation(animation, total_frames, filename=video_filename)
+    # # Create and save animation
+    # animator = PathAnimator(UAV, ObjFun)
+    # animation, total_frames = animator.create_animation(solution["all_paths"])
+    # video_filename = "normal_gwo.mp4" if is_normal else "imporve_gwo.mp4"
+    # save_animation(animation, total_frames, filename=video_filename)
 
     is_normal = False
     # Run optimization
     solution = GWO(UAV, SearchAgents, Max_iter, seed, is_normal=is_normal, dynamic_g=50)
 
-    # Export data
-    animation_filename = "normal_gwo.json" if is_normal else "imporve_gwo.json"
-    export_animation_data(solution, UAV, filename=animation_filename)
+    # # Export data
+    # animation_filename = "normal_gwo.json" if is_normal else "imporve_gwo.json"
+    # export_animation_data(solution, UAV, filename=animation_filename)
 
-    # Create and save animation
-    animator = PathAnimator(UAV, ObjFun)
-    animation, total_frames = animator.create_animation(solution["all_paths"])
-    video_filename = "normal_gwo.mp4" if is_normal else "imporve_gwo.mp4"
-    save_animation(animation, total_frames, filename=video_filename)
+    # # Create and save animation
+    # animator = PathAnimator(UAV, ObjFun)
+    # animation, total_frames = animator.create_animation(solution["all_paths"])
+    # video_filename = "normal_gwo.mp4" if is_normal else "imporve_gwo.mp4"
+    # save_animation(animation, total_frames, filename=video_filename)
 
     # print(f"Optimization completed and animation saved. Seed used: {seed}")
 

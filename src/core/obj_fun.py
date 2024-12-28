@@ -9,13 +9,45 @@ def ObjFun(position, UAV):
     total_distance = np.sum(distances)
 
     # Check for collisions
-    collision_penalty = check_collisions(path, UAV["NoFlyZones"])
+    # NOTE: calculate the number of points inside the no-fly zones
+    # collision_penalty = check_collisions(path, UAV["NoFlyZones"])
+
+    # NOTE: calculate the distance of points inside the no-fly zones
+    collision_penalty = calculate_no_fly_zones_distance(path, UAV["NoFlyZones"])
 
     # Objective function: heavily penalize collisions, but prioritize distance minimization
-    w1 = 0.3
-    w2 = 0.5
+    # NOTE: not calculate the height penalty
+    w1 = 0.2
+    w2 = 100
     fitness = w1 * total_distance + w2 * collision_penalty
     return fitness
+
+
+def calculate_no_fly_zones_distance(path, no_fly_zones):
+    # check collisions
+    result = 0
+    for point in path:
+        for zone in no_fly_zones:
+            _is, distance = is_point_in_no_fly_zone(point, zone)
+            if _is:
+                result += distance
+            # result += distance # distance whit all no fly zones
+    return result
+
+
+def is_point_in_no_fly_zone(point, zone):
+    distance_threshold = 0.2  # setting safe distance with the no fly zone
+    x, y, height, radius = zone
+    center = np.array([x, y, 0])  # Cylinder base center
+
+    # Calculate distance from point to cylinder center in XY plane
+    distance_xy = np.linalg.norm(point[:2] - center[:2])
+
+    # Check if point is within cylinder radius and height
+    safe_distance = radius + distance_threshold
+    if distance_xy <= safe_distance and 0 <= point[2] <= height:
+        return True, distance_xy  # inside
+    return False, distance_xy  # outside
 
 
 def check_collisions(path, no_fly_zones):
